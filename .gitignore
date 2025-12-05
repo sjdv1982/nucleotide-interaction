@@ -1,0 +1,6 @@
+*.code-workspace
+.vscode/
+*.pyc
+/*.job
+input/*
+!input/*.CHECKSUM
