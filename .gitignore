@@ -4,3 +4,4 @@
 /*.job
 input/*
 !input/*.CHECKSUM
+allpdb-count-contacts.npy
