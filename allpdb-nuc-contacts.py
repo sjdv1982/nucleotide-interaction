@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import numpy as np
 from seamless import Buffer
 
@@ -20,30 +22,18 @@ def iter_residue_slices(rna_struc):
         yield slice(residue_start, len(rna_struc))
 
 
-fit_indices = np.load("input/allpdb-rna-fit-indices.npy")
 rna_struc_index, rna_strucs_data = Buffer.load(
     "input/allpdb-rna-aareduce.mixed"
 ).get_value("mixed")
 contact_counts = np.load("allpdb-count-contacts.npy")
 assert len(contact_counts) == len(rna_strucs_data)
 
-residue_slices = []
+nuc_contact_counts = []
 for r_start, r_size in rna_struc_index.values():
     rna_struc = rna_strucs_data[r_start : r_start + r_size]
     for residue_slice in iter_residue_slices(rna_struc):
         residue_start = r_start + residue_slice.start
         residue_stop = r_start + residue_slice.stop
-        residue_slices.append(slice(residue_start, residue_stop))
+        nuc_contact_counts.append(contact_counts[residue_start:residue_stop].sum())
 
-dinuc_contact_counts = []
-for fit_index in fit_indices:
-    dinuc_slice = slice(
-        residue_slices[fit_index].start,
-        residue_slices[fit_index + 1].stop,
-    )
-    dinuc_contact_counts.append(contact_counts[dinuc_slice].sum())
-
-np.save(
-    "allpdb-rna-fit-count-contacts.npy",
-    np.asarray(dinuc_contact_counts, dtype=np.uint16),
-)
+np.save("allpdb-nuc-contacts.npy", np.asarray(nuc_contact_counts, dtype=np.uint16))

@@ -6,3 +6,8 @@ input/*
 !input/*.CHECKSUM
 allpdb-count-contacts.npy
 allpdb-detect-single-bases.npy
+pdb_pfam_mapping.csv
+allpdb-pfam-contacts.txt
+allpdb-print-nuc-auth.txt
+allpdb-print-nuc.txt
+allpdb-nuc-contacts.npy
