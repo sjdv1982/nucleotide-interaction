@@ -5,3 +5,4 @@
 input/*
 !input/*.CHECKSUM
 allpdb-count-contacts.npy
+allpdb-detect-single-bases.npy
