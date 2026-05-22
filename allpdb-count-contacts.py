@@ -31,18 +31,18 @@ print()
 
 interface_index, interface_data = Buffer.load(
     "input/allpdb-filtered-interfaces.mixed"
-).deserialize("mixed")
-allpdb_keyorder = Buffer.load("input/allpdb-keyorder.json").deserialize("plain")
+).get_value("mixed")
+allpdb_keyorder = Buffer.load("input/allpdb-keyorder.json").get_value("plain")
 
 print("load RNA")
 rna_struc_index, rna_strucs_data = Buffer.load(
     "input/allpdb-rna-aareduce.mixed"
-).deserialize("mixed")
+).get_value("mixed")
 rna_strucs_contacts = np.empty(len(rna_strucs_data), np.uint)
 rna_strucs_contact_done = np.zeros(len(rna_strucs_data), bool)
 
 print("load complexes")
-strucs = Buffer.load("input/allpdb-interface-struc.mixed").deserialize("mixed")
+strucs = Buffer.load("input/allpdb-interface-struc.mixed").get_value("mixed")
 
 for code in tqdm(interface_index):
     if_start, if_size = interface_index[code]

@@ -2,7 +2,7 @@ from seamless import Buffer
 import numpy as np
 
 fit_indices = np.load("input/allpdb-rna-fit-indices.npy")
-data = Buffer.load("input/allpdb-rna-aareduce.mixed").deserialize("mixed")
+data = Buffer.load("input/allpdb-rna-aareduce.mixed").get_value("mixed")
 contact_counts = np.load("allpdb-count-contacts.npy")
 assert len(contact_counts) == len(data[1])
 
